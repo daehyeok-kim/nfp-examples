@@ -109,19 +109,44 @@ control NextHop(
     }
     
     table ipv4_lpm {
-        key = {my_hdr.ipv4.dst_addr : lpm;}  
+        key = {
+		my_hdr.ipv4.dst_addr : exact;
+		my_hdr.ipv4.src_addr : exact;
+	}  
         actions = { set_nhop; drop; }
         default_action = drop();
+	size = 1000000;
     }
     table ipv4_lpm2 {
-        key = {meta.test : lpm;}  
+        key = {
+		my_hdr.ipv4.dst_addr : exact;
+		my_hdr.ipv4.src_addr : exact;
+	}  
         actions = { set_nhop; drop; }
         default_action = drop();
+	size = 1000000;
+    }
+    table ipv4_lpm3 {
+        key = {
+		my_hdr.ipv4.dst_addr : exact;
+		my_hdr.ipv4.src_addr : exact;
+	}  
+        actions = { set_nhop; drop; }
+        default_action = drop();
+	size = 1000000;
+    }
+    table ipv4_lpm4 {
+        key = {meta.test : exact;}  
+        actions = { set_nhop; drop; }
+        default_action = drop();
+	size = 1000000;
     }
 
     apply {
         ipv4_lpm.apply();
         ipv4_lpm2.apply();
+        ipv4_lpm3.apply();
+        ipv4_lpm4.apply();
     }
 }
 control c_Ingress(

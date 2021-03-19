@@ -1,10 +1,12 @@
 #!/bin/sh
 
-rm -rf out
+app=$(echo $1 | cut -f 1 -d '.')
+rm -rf $app 
+echo $app
 
 nfp4build  \
-	--output-nffw-filename ./out/app.nffw \
-	--incl-p4-build ./simple.p4 ./headers.p4  \
+	--output-nffw-filename ./$app/app.nffw \
+	--incl-p4-build $1 \
  	--sku AMDA0081-0001:0  \
  	--platform hydrogen  \
  	--reduced-thread-usage  \

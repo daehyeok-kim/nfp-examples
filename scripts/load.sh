@@ -4,7 +4,7 @@ echo "==================================="
 echo "    Loading Nic"
 echo "==================================="
 #sudo rtecli -p 20206 design-load -p out/pif_design.json -c rules.p4cfg -f ./out/app.nffw
-time sudo -E env "PATH=$PATH" rtecli -p 20206 design-load -p out/pif_design.json -f ./out/app.nffw
+time sudo -E env "PATH=$PATH" rtecli -p 20206 design-load -p $1/pif_design.json -f $1/app.nffw
 
 echo "==================================="
 echo "    Binding to igb_uio"
